@@ -1,0 +1,147 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/pessoas": {
+            "get": {
+                "description": "Retorna uma lista de todas as pessoas cadastradas",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "pessoas"
+                ],
+                "summary": "Lista todas as pessoas",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Pessoa"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Cadastra uma nova pessoa no banco de dados",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "pessoas"
+                ],
+                "summary": "Cria uma nova pessoa",
+                "parameters": [
+                    {
+                        "description": "Pessoa para cadastrar",
+                        "name": "pessoa",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Pessoa"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/models.Pessoa"
+                        }
+                    }
+                }
+            }
+        },
+        "/pessoas/{id}": {
+            "put": {
+                "description": "Atualiza os dados de uma pessoa pelo ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "pessoas"
+                ],
+                "summary": "Atualiza uma pessoa existente",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ID da Pessoa",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Dados atualizados",
+                        "name": "pessoa",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Pessoa"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Pessoa"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Remove uma pessoa do banco de dados pelo ID",
+                "tags": [
+                    "pessoas"
+                ],
+                "summary": "Deleta uma pessoa",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ID da Pessoa",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "models.Pessoa": {
+            "type": "object",
+            "properties": {
+                "coisa_favorita": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "idade": {
+                    "type": "integer"
+                },
+                "nome": {
+                    "type": "string"
+                },
+                "sexo": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

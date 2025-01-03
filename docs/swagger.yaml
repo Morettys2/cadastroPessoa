@@ -1,0 +1,100 @@
+swagger: "2.0"
+info:
+  title: "Cadastro de Pessoas"
+  description: "API para gerenciamento de pessoas."
+  version: "1.0.0"
+  contact:
+    name: "Moretty"
+    email: "m0rettyy20@gmail.com"
+paths:
+  /pessoas:
+    get:
+      description: Retorna uma lista de todas as pessoas cadastradas
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Pessoa'
+            type: array
+      summary: Lista todas as pessoas
+      tags:
+        - pessoas
+    post:
+      consumes:
+        - application/json
+      description: Cadastra uma nova pessoa no banco de dados
+      parameters:
+        - description: Pessoa para cadastrar
+          in: body
+          name: pessoa
+          required: true
+          schema:
+            $ref: '#/definitions/models.Pessoa'
+      produces:
+        - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Pessoa'
+      summary: Cria uma nova pessoa
+      tags:
+        - pessoas
+  /pessoas/{id}:
+    delete:
+      description: Remove uma pessoa do banco de dados pelo ID
+      parameters:
+        - description: ID da Pessoa
+          in: path
+          name: id
+          required: true
+          type: string
+      responses:
+        "204":
+          description: No Content
+      summary: Deleta uma pessoa
+      tags:
+        - pessoas
+    put:
+      consumes:
+        - application/json
+      description: Atualiza os dados de uma pessoa pelo ID
+      parameters:
+        - description: ID da Pessoa
+          in: path
+          name: id
+          required: true
+          type: string
+        - description: Dados atualizados
+          in: body
+          name: pessoa
+          required: true
+          schema:
+            $ref: '#/definitions/models.Pessoa'
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Pessoa'
+      summary: Atualiza uma pessoa existente
+      tags:
+        - pessoas
+definitions:
+  models.Pessoa:
+    properties:
+      coisa_favorita:
+        type: string
+      id:
+        type: string
+      idade:
+        type: integer
+      nome:
+        type: string
+      sexo:
+        type: string
+    type: object

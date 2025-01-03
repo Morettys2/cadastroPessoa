@@ -9,6 +9,13 @@ import (
 	"github.com/google/uuid"
 )
 
+// ListarPessoas godoc
+// @Summary Lista todas as pessoas
+// @Description Retorna uma lista de todas as pessoas cadastradas
+// @Tags pessoas
+// @Produce json
+// @Success 200 {array} models.Pessoa
+// @Router /pessoas [get]
 func ListarPessoas(c *gin.Context) {
 	rows, err := db.DB.Query("SELECT * FROM pessoas")
 	if err != nil {
@@ -26,7 +33,15 @@ func ListarPessoas(c *gin.Context) {
 	c.JSON(http.StatusOK, pessoas)
 }
 
-
+// CriarPessoa godoc
+// @Summary Cria uma nova pessoa
+// @Description Cadastra uma nova pessoa no banco de dados
+// @Tags pessoas
+// @Accept json
+// @Produce json
+// @Param pessoa body models.Pessoa true "Pessoa para cadastrar"
+// @Success 201 {object} models.Pessoa
+// @Router /pessoas [post]
 func CriarPessoa(c *gin.Context) {
 	var novaPessoa models.Pessoa
 	if err := c.ShouldBindJSON(&novaPessoa); err != nil {
@@ -42,7 +57,16 @@ func CriarPessoa(c *gin.Context) {
 	c.JSON(http.StatusCreated, novaPessoa)
 }
 
-
+// AtualizarPessoa godoc
+// @Summary Atualiza uma pessoa existente
+// @Description Atualiza os dados de uma pessoa pelo ID
+// @Tags pessoas
+// @Accept json
+// @Produce json
+// @Param id path string true "ID da Pessoa"
+// @Param pessoa body models.Pessoa true "Dados atualizados"
+// @Success 200 {object} models.Pessoa
+// @Router /pessoas/{id} [put]
 func AtualizarPessoa(c *gin.Context) {
 	id := c.Param("id")
 	var pessoaAtualizada models.Pessoa
@@ -60,6 +84,13 @@ func AtualizarPessoa(c *gin.Context) {
 	c.JSON(http.StatusOK, pessoaAtualizada)
 }
 
+// DeletarPessoa godoc
+// @Summary Deleta uma pessoa
+// @Description Remove uma pessoa do banco de dados pelo ID
+// @Tags pessoas
+// @Param id path string true "ID da Pessoa"
+// @Success 204 "No Content"
+// @Router /pessoas/{id} [delete]
 func DeletarPessoa(c *gin.Context) {
 	id := c.Param("id")
 	_, err := db.DB.Exec("DELETE FROM pessoas WHERE id=?", id)
