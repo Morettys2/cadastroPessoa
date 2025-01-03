@@ -41,7 +41,7 @@ project/
 
 1. Clone o repositório:
    ```bash
-   git clone [<URL_DO_REPOSITORIO>](https://github.com/Morettys2/cadastroPessoa.git)
+   git clone https://github.com/Morettys2/cadastroPessoa.git
    ```
 2. Acesse o diretório do projeto:
    ```bash
